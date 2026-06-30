@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Card, Form, Input, Button, Upload, Space, Typography, Spin, Image, Alert, App as AntApp } from "antd";
+import { Card, Form, Input, Button, Upload, Space, Typography, Spin, Image, Alert, App as AntApp, Divider } from "antd";
 import { UploadOutlined, SaveOutlined, PictureOutlined } from "@ant-design/icons";
 
 const { Title, Paragraph, Text } = Typography;
@@ -21,7 +21,16 @@ export default function AdminSettingsPage() {
       const data = await res.json();
       if (data.success && data.data) {
         setCurrentImage(data.data.heroBgImage);
-        form.setFieldsValue({ heroBgImage: data.data.heroBgImage });
+        form.setFieldsValue({ 
+          heroBgImage: data.data.heroBgImage,
+          heroSubtitle: data.data.heroSubtitle || "Architectural Designer • Kallachi",
+          heroHeading: data.data.heroHeading || "Quality. Creativity. Perfection.",
+          heroDescription: data.data.heroDescription || "Trusted design studio crafting premium residential and commercial spaces with material honesty and aesthetic balance.",
+          authBgImage: data.data.authBgImage || "/login_bg.png",
+          philosophyBgImage: data.data.philosophyBgImage,
+          philosophyHeading: data.data.philosophyHeading || "Bespoke Spaces Designed For Inspired Living",
+          philosophyDescription: data.data.philosophyDescription || "At Mieux Interiors & Architects, we believe that design should be a direct reflection of its context, material, and user. We balance raw organic textures with premium materials like oak wood and custom bronze to create environments that are both functional and inspiring.\n\nWhether designing a private residence or a commercial workspace in Kallachi, our dedicated team handles every step from conceptualization to execution with absolute precision."
+        });
       } else {
         message.error("Failed to load settings.");
       }
@@ -37,7 +46,7 @@ export default function AdminSettingsPage() {
     fetchSettings();
   }, []);
 
-  const handleSaveSettings = async (values: { heroBgImage: string }) => {
+  const handleSaveSettings = async (values: any) => {
     setSaving(true);
     try {
       const res = await fetch("/api/admin/settings", {
@@ -48,7 +57,7 @@ export default function AdminSettingsPage() {
       const data = await res.json();
       if (data.success) {
         setCurrentImage(values.heroBgImage);
-        message.success("Homepage background image updated successfully!");
+        message.success("Settings updated successfully!");
       } else {
         message.error(data.message || "Failed to update settings.");
       }
@@ -60,7 +69,7 @@ export default function AdminSettingsPage() {
     }
   };
 
-  const handleMediaUpload = async (options: any) => {
+  const handleMediaUpload = async (options: any, fieldName: string = "heroBgImage") => {
     const { file, onSuccess, onError } = options;
     const isImage = file.type.startsWith("image/");
     if (!isImage) {
@@ -115,8 +124,10 @@ export default function AdminSettingsPage() {
       }
 
       const imageUrl = uploadData.secure_url;
-      form.setFieldsValue({ heroBgImage: imageUrl });
-      setCurrentImage(imageUrl);
+      form.setFieldsValue({ [fieldName]: imageUrl });
+      if (fieldName === "heroBgImage") {
+        setCurrentImage(imageUrl);
+      }
       onSuccess(uploadData);
       message.success("Image uploaded successfully! Click 'Save Changes' to apply.");
     } catch (err: any) {
@@ -138,7 +149,7 @@ export default function AdminSettingsPage() {
   };
 
   return (
-    <div style={{ paddingBottom: "32px", maxWidth: "800px", margin: "0 auto" }}>
+    <div style={{ paddingBottom: "32px", width: "100%" }}>
       <div style={{ marginBottom: "24px" }}>
         <Title level={2} className="font-serif" style={{ margin: 0 }}>
           Homepage Settings
@@ -149,81 +160,253 @@ export default function AdminSettingsPage() {
       </div>
 
       <Spin spinning={loading} tip="Loading settings...">
-        <Space direction="vertical" size={24} style={{ width: "100%" }}>
-        {/* Current Image Preview */}
-        <Card title={<span className="font-serif" style={{ fontSize: "16px", fontWeight: 600 }}>Hero Background Image Preview</span>} variant="borderless" style={{ borderRadius: "12px", boxShadow: "0 4px 20px rgba(138, 106, 74, 0.04)" }}>
-          {currentImage ? (
-            <div style={{ position: "relative", width: "100%", height: "260px", overflow: "hidden", borderRadius: "8px" }}>
-              <Image
-                src={currentImage}
-                alt="Current Hero Background"
-                style={{ width: "100%", height: "260px", objectFit: "cover" }}
-              />
-              <div style={{ position: "absolute", bottom: "12px", left: "12px", background: "rgba(0,0,0,0.6)", padding: "4px 12px", borderRadius: "4px" }}>
-                <Text style={{ color: "#ffffff", fontSize: "12px" }}>Active background image</Text>
-              </div>
-            </div>
-          ) : (
-            <Alert message="No background image active" type="warning" showIcon />
-          )}
-        </Card>
-
-        {/* Form settings */}
-        <Card variant="borderless" style={{ borderRadius: "12px", boxShadow: "0 4px 20px rgba(138, 106, 74, 0.04)" }}>
-          <Form
-            form={form}
-            layout="vertical"
-            onFinish={handleSaveSettings}
-            requiredMark={false}
-          >
-            <Form.Item
-              name="heroBgImage"
-              label={<span style={{ fontWeight: 600 }}>Hero Background Image Source</span>}
-              rules={[{ required: true, message: "Please specify or upload a hero background image" }]}
-              extra="Enter an external image URL, or upload a file directly to Cloudinary using the panel below."
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSaveSettings}
+          requiredMark={false}
+        >
+          <Space direction="vertical" size={24} style={{ width: "100%" }}>
+            
+            {/* Hero Settings */}
+            <Card 
+              title={<span className="font-serif" style={{ fontSize: "18px", fontWeight: 600 }}>1. Hero Banner Settings</span>} 
+              variant="borderless" 
+              style={{ borderRadius: "12px", boxShadow: "0 4px 20px rgba(138, 106, 74, 0.04)" }}
             >
-              <Input 
-                prefix={<PictureOutlined style={{ color: "var(--text-secondary)" }} />}
-                placeholder="https://images.unsplash.com/photo-..." 
-                size="large"
-                style={{ height: "45px" }}
-                onChange={(e) => setCurrentImage(e.target.value)}
-              />
-            </Form.Item>
-
-            <Form.Item label={<span style={{ fontWeight: 600 }}>Upload New Image</span>}>
-              <Upload
-                accept="image/*"
-                showUploadList={false}
-                customRequest={handleMediaUpload}
-                beforeUpload={handleBeforeUpload}
+              <Form.Item
+                name="heroBgImage"
+                label={<span style={{ fontWeight: 600 }}>Hero Background Image URL</span>}
+                rules={[{ required: true, message: "Please specify or upload a hero background image" }]}
+                extra="Enter an external image URL, or upload a file directly from your computer below."
               >
-                <Button 
-                  icon={<UploadOutlined />} 
-                  loading={uploading} 
+                <Input 
+                  prefix={<PictureOutlined style={{ color: "var(--text-secondary)" }} />}
+                  placeholder="https://images.unsplash.com/photo-..." 
                   size="large"
                   style={{ height: "45px" }}
-                >
-                  {uploading ? "Uploading to Cloudinary..." : "Select & Upload Image"}
-                </Button>
-              </Upload>
-            </Form.Item>
+                  onChange={(e) => setCurrentImage(e.target.value)}
+                />
+              </Form.Item>
 
-            <Form.Item style={{ margin: "24px 0 0 0" }}>
+              <Form.Item label={<span style={{ fontWeight: 600 }}>Upload New Hero Image</span>}>
+                <Space align="start" size={24} wrap>
+                  <Upload
+                    accept="image/*"
+                    showUploadList={false}
+                    customRequest={(options) => handleMediaUpload(options, "heroBgImage")}
+                    beforeUpload={handleBeforeUpload}
+                  >
+                    <Button 
+                      icon={<UploadOutlined />} 
+                      loading={uploading} 
+                      size="large"
+                      style={{ height: "45px" }}
+                    >
+                      {uploading ? "Uploading..." : "Select & Upload Image"}
+                    </Button>
+                  </Upload>
+                  
+                  {/* Hero Preview */}
+                  {currentImage && (
+                    <div style={{ position: "relative", width: "120px", height: "80px", borderRadius: "8px", overflow: "hidden", border: "1px solid #d9d9d9" }}>
+                      <Image
+                        src={currentImage}
+                        alt="Hero Preview"
+                        style={{ width: "120px", height: "80px", objectFit: "cover" }}
+                      />
+                    </div>
+                  )}
+                </Space>
+              </Form.Item>
+
+              <Divider />
+
+              <Form.Item
+                name="heroSubtitle"
+                label={<span style={{ fontWeight: 600 }}>Hero Subtitle (Overline)</span>}
+                rules={[{ required: true, message: "Please provide a subtitle" }]}
+              >
+                <Input size="large" />
+              </Form.Item>
+
+              <Form.Item
+                name="heroHeading"
+                label={<span style={{ fontWeight: 600 }}>Hero Main Heading</span>}
+                rules={[{ required: true, message: "Please provide a main heading" }]}
+              >
+                <Input size="large" />
+              </Form.Item>
+
+              <Form.Item
+                name="heroDescription"
+                label={<span style={{ fontWeight: 600 }}>Hero Description</span>}
+                rules={[{ required: true, message: "Please provide a description" }]}
+              >
+                <Input.TextArea rows={3} size="large" />
+              </Form.Item>
+            </Card>
+
+            {/* Philosophy Settings */}
+            <Card 
+              title={<span className="font-serif" style={{ fontSize: "18px", fontWeight: 600 }}>2. Philosophy Section Settings</span>} 
+              variant="borderless" 
+              style={{ borderRadius: "12px", boxShadow: "0 4px 20px rgba(138, 106, 74, 0.04)" }}
+            >
+              <Form.Item
+                name="philosophyHeading"
+                label={<span style={{ fontWeight: 600 }}>Section Heading</span>}
+                rules={[{ required: true, message: "Please provide a heading for the philosophy section" }]}
+              >
+                <Input size="large" />
+              </Form.Item>
+
+              <Form.Item
+                name="philosophyDescription"
+                label={<span style={{ fontWeight: 600 }}>Section Description</span>}
+                rules={[{ required: true, message: "Please provide a description for the philosophy section" }]}
+                extra="You can use paragraph breaks by pressing Enter."
+              >
+                <Input.TextArea rows={6} size="large" />
+              </Form.Item>
+
+              <Divider />
+
+              <Form.Item
+                shouldUpdate={(prevValues, currentValues) => prevValues.philosophyBgImage !== currentValues.philosophyBgImage}
+              >
+                {({ getFieldValue }) => {
+                  const philosophyImg = getFieldValue("philosophyBgImage");
+                  return (
+                    <>
+                      <Form.Item
+                        name="philosophyBgImage"
+                        label={<span style={{ fontWeight: 600 }}>Philosophy Background Image URL</span>}
+                        rules={[{ required: true, message: "Please specify or upload an image" }]}
+                        extra="Enter an external image URL, or upload a file directly from your computer below."
+                      >
+                        <Input 
+                          prefix={<PictureOutlined style={{ color: "var(--text-secondary)" }} />}
+                          placeholder="https://images.unsplash.com/photo-..." 
+                          size="large"
+                          style={{ height: "45px" }}
+                        />
+                      </Form.Item>
+
+                      <Form.Item label={<span style={{ fontWeight: 600 }}>Upload New Philosophy Image</span>} style={{ marginBottom: 0 }}>
+                        <Space align="start" size={24} wrap>
+                          <Upload
+                            accept="image/*"
+                            showUploadList={false}
+                            customRequest={(options) => handleMediaUpload(options, "philosophyBgImage")}
+                            beforeUpload={handleBeforeUpload}
+                          >
+                            <Button 
+                              icon={<UploadOutlined />} 
+                              loading={uploading} 
+                              size="large"
+                              style={{ height: "45px" }}
+                            >
+                              {uploading ? "Uploading..." : "Select & Upload Image"}
+                            </Button>
+                          </Upload>
+
+                          {/* Philosophy Preview */}
+                          {philosophyImg && (
+                            <div style={{ position: "relative", width: "120px", height: "80px", borderRadius: "8px", overflow: "hidden", border: "1px solid #d9d9d9" }}>
+                              <Image
+                                src={philosophyImg}
+                                alt="Philosophy Preview"
+                                style={{ width: "120px", height: "80px", objectFit: "cover" }}
+                              />
+                            </div>
+                          )}
+                        </Space>
+                      </Form.Item>
+                    </>
+                  );
+                }}
+              </Form.Item>
+            </Card>
+
+            {/* Auth Settings */}
+            <Card 
+              title={<span className="font-serif" style={{ fontSize: "18px", fontWeight: 600 }}>3. Authentication Pages Settings (Login/Register)</span>} 
+              variant="borderless" 
+              style={{ borderRadius: "12px", boxShadow: "0 4px 20px rgba(138, 106, 74, 0.04)" }}
+            >
+              <Form.Item
+                shouldUpdate={(prevValues, currentValues) => prevValues.authBgImage !== currentValues.authBgImage}
+              >
+                {({ getFieldValue }) => {
+                  const authImg = getFieldValue("authBgImage");
+                  return (
+                    <>
+                      <Form.Item
+                        name="authBgImage"
+                        label={<span style={{ fontWeight: 600 }}>Login & Register Background Image URL</span>}
+                        rules={[{ required: true, message: "Please specify or upload an image" }]}
+                        extra="Enter an external image URL, or upload a file directly from your computer below."
+                      >
+                        <Input 
+                          prefix={<PictureOutlined style={{ color: "var(--text-secondary)" }} />}
+                          placeholder="https://images.unsplash.com/photo-..." 
+                          size="large"
+                          style={{ height: "45px" }}
+                        />
+                      </Form.Item>
+
+                      <Form.Item label={<span style={{ fontWeight: 600 }}>Upload New Background Image</span>} style={{ marginBottom: 0 }}>
+                        <Space align="start" size={24} wrap>
+                          <Upload
+                            accept="image/*"
+                            showUploadList={false}
+                            customRequest={(options) => handleMediaUpload(options, "authBgImage")}
+                            beforeUpload={handleBeforeUpload}
+                          >
+                            <Button 
+                              icon={<UploadOutlined />} 
+                              loading={uploading} 
+                              size="large"
+                              style={{ height: "45px" }}
+                            >
+                              {uploading ? "Uploading..." : "Select & Upload Image"}
+                            </Button>
+                          </Upload>
+
+                          {/* Auth Preview */}
+                          {authImg && (
+                            <div style={{ position: "relative", width: "120px", height: "80px", borderRadius: "8px", overflow: "hidden", border: "1px solid #d9d9d9" }}>
+                              <Image
+                                src={authImg}
+                                alt="Auth Background Preview"
+                                style={{ width: "120px", height: "80px", objectFit: "cover" }}
+                              />
+                            </div>
+                          )}
+                        </Space>
+                      </Form.Item>
+                    </>
+                  );
+                }}
+              </Form.Item>
+            </Card>
+
+            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "8px" }}>
               <Button
                 type="primary"
                 htmlType="submit"
                 loading={saving}
                 icon={<SaveOutlined />}
                 size="large"
-                style={{ height: "45px", minWidth: "150px" }}
+                style={{ height: "48px", minWidth: "180px", fontSize: "16px" }}
               >
-                Save Changes
+                Save All Changes
               </Button>
-            </Form.Item>
-          </Form>
-        </Card>
-      </Space>
+            </div>
+
+          </Space>
+        </Form>
       </Spin>
     </div>
   );

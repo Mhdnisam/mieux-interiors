@@ -1,5 +1,5 @@
 import Navbar from "@/components/public/Navbar";
-import Footer from "@/components/public/Footer";
+import ConditionalFooter from "@/components/public/ConditionalFooter";
 
 export default function PublicLayout({
   children,
@@ -10,7 +10,7 @@ export default function PublicLayout({
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navbar />
       <main style={{ flex: 1 }}>{children}</main>
-      <Footer />
+      <ConditionalFooter />
     </div>
   );
 }

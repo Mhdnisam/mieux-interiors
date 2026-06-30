@@ -25,8 +25,9 @@ export default function Logo({
         style={{
           height: height,
           width: "auto",
+          maxWidth: "100%",
           display: "block",
-          filter: light ? "brightness(0) invert(1)" : "none",
+          objectFit: "contain",
         }}
       />
     </div>

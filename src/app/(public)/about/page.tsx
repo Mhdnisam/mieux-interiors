@@ -49,7 +49,7 @@ export default function AboutPage() {
             Our Studio & Philosophy
           </Title>
           <Paragraph style={{ color: "#d8cfc0", fontSize: "16px", marginTop: "16px", lineHeight: "1.6" }}>
-            A trusted team of architects and interior designers in Nadapuram shaping bespoke residential and workplace architectures.
+            A trusted team of architects and interior designers in Kallachi shaping bespoke residential and workplace architectures.
           </Paragraph>
         </div>
       </section>
@@ -65,7 +65,7 @@ export default function AboutPage() {
               Redefining Residential & Corporate Architectures
             </Title>
             <Paragraph style={{ color: "var(--text-secondary)", fontSize: "16px", lineHeight: "1.8" }}>
-              Founded with the vision to bring uncompromising quality and bespoke design to the region, Mieux Interiors & Architects has grown into a leading architecture and interior design studio with offices in Nadapuram and Kallachi.
+              Founded with the vision to bring uncompromising quality and bespoke design to the region, Mieux Interiors & Architects has grown into a leading architecture and interior design studio based in Kallachi.
             </Paragraph>
             <Paragraph style={{ color: "var(--text-secondary)", fontSize: "16px", lineHeight: "1.8" }}>
               Our work is defined by clean lines, natural material compositions, and a dedicated focus on client requirements. We steer clear of repetitive design models, choosing instead to custom-craft layouts, furniture details, and exterior façades for each client.

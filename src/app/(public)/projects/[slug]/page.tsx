@@ -22,8 +22,8 @@ export default function ProjectDetailsPage({
   const fallbackMap: Record<string, any> = {
     "the-bronze-villa": {
       title: "The Bronze Villa",
-      category: "home",
-      location: "Kallachi, Nadapuram",
+      category: "residential",
+      location: "Kallachi",
       shortDescription: "A luxurious 4 BHK residential project featuring earthy tones and premium bronze accents.",
       fullDescription: "The Bronze Villa is designed to merge luxury with warmth. Every element in this home is carefully selected to reflect natural materials, with solid timber finishes, earthy olive accents, and custom bronze fixtures. The spatial layout is open, welcoming ample natural light throughout the double-height living room and dining spaces.",
       coverImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
@@ -38,8 +38,8 @@ export default function ProjectDetailsPage({
     },
     "earthy-slate-studio": {
       title: "Earthy Slate Studio",
-      category: "office",
-      location: "Nadapuram, Kerala",
+      category: "commercial",
+      location: "Kallachi, Kerala",
       shortDescription: "An ergonomic, productive office space for a creative design agency with natural accents.",
       fullDescription: "Earthy Slate Studio is a workplace that fosters productivity and creativity. Employing an open floor plan, acoustic wood paneling, slate-gray floor tiles, and custom linear lighting. The office features multiple collaborative pods, private call chambers, and a central social kitchen area that acts as the hub of the agency.",
       coverImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",

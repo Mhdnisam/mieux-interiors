@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/db";
 import Setting from "@/models/Setting";
 
 const DEFAULT_HERO_BG_IMAGE = "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=80";
+const DEFAULT_PHILOSOPHY_BG_IMAGE = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80";
 
 export async function GET() {
   try {
@@ -16,7 +17,8 @@ export async function GET() {
       return NextResponse.json({
         success: true,
         data: {
-          heroBgImage: DEFAULT_HERO_BG_IMAGE
+          heroBgImage: DEFAULT_HERO_BG_IMAGE,
+          philosophyBgImage: DEFAULT_PHILOSOPHY_BG_IMAGE
         }
       });
     }

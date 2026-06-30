@@ -36,7 +36,7 @@ export default function AdminLayout({
       const data = await res.json();
       if (data.success) {
         message.success("Logged out successfully.");
-        router.push("/admin/login");
+        router.push("/login");
       } else {
         message.error("Logout failed.");
       }
@@ -137,9 +137,11 @@ export default function AdminLayout({
           </Title>
 
           <Space size={16}>
-            <Button type="text" href="/" icon={<HomeOutlined />}>
-              View Live Website
-            </Button>
+            <Link href="/">
+              <Button type="text" icon={<HomeOutlined />}>
+                View Live Website
+              </Button>
+            </Link>
             <Button
               type="primary"
               danger

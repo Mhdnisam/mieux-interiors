@@ -6,7 +6,7 @@ const ProjectSchema = new Schema(
     slug: { type: String, required: true, unique: true },
     category: {
       type: String,
-      enum: ["home", "office", "interior"],
+      enum: ["residential", "commercial", "interior"],
       required: true,
     },
     location: { type: String, required: true },

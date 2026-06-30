@@ -18,8 +18,8 @@ export default function PublicProjectsPage() {
       _id: "1",
       title: "The Bronze Villa",
       slug: "the-bronze-villa",
-      category: "home",
-      location: "Kallachi, Nadapuram",
+      category: "residential",
+      location: "Kallachi",
       coverImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
       shortDescription: "A luxurious 4 BHK residential project featuring earthy tones and premium bronze accents."
     },
@@ -27,8 +27,8 @@ export default function PublicProjectsPage() {
       _id: "2",
       title: "Earthy Slate Studio",
       slug: "earthy-slate-studio",
-      category: "office",
-      location: "Nadapuram, Kerala",
+      category: "commercial",
+      location: "Kallachi, Kerala",
       coverImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
       shortDescription: "An ergonomic, productive office space for a creative design agency with natural accents."
     },
@@ -36,7 +36,7 @@ export default function PublicProjectsPage() {
       _id: "3",
       title: "Olive Harmony Residence",
       slug: "olive-harmony-residence",
-      category: "interior",
+      category: "residential",
       location: "Kozhikode, Kerala",
       coverImage: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80",
       shortDescription: "Custom interior styling prioritizing material balance, natural ventilation, and muted olives."
@@ -79,9 +79,8 @@ export default function PublicProjectsPage() {
 
   const tabs = [
     { key: "all", label: "All Projects" },
-    { key: "home", label: "Residential" },
-    { key: "office", label: "Corporate Offices" },
-    { key: "interior", label: "Custom Interiors" },
+    { key: "residential", label: "Residential" },
+    { key: "commercial", label: "Commercial" },
   ];
 
   return (
@@ -113,7 +112,7 @@ export default function PublicProjectsPage() {
             Design Portfolio
           </Title>
           <Paragraph style={{ color: "#d8cfc0", fontSize: "16px", marginTop: "16px", lineHeight: "1.6" }}>
-            Explore our architectural commissions and interior design assignments completed across Nadapuram, Kallachi, and Kozhikode.
+            Explore our architectural commissions and interior design assignments completed across Kallachi and Kozhikode.
           </Paragraph>
         </div>
       </section>

@@ -34,7 +34,7 @@ interface ProjectType {
   _id: string;
   title: string;
   slug: string;
-  category: "home" | "office" | "interior";
+  category: "residential" | "commercial" | "interior";
   location: string;
   shortDescription: string;
   fullDescription: string;
@@ -111,7 +111,7 @@ export default function AdminProjectsPage() {
       setEditingProject(null);
       form.resetFields();
       setMediaItems([]);
-      form.setFieldsValue({ status: "draft", category: "home", media: [] });
+      form.setFieldsValue({ status: "draft", category: "residential", media: [] });
     }
     setModalOpen(true);
   };
@@ -343,8 +343,8 @@ export default function AdminProjectsPage() {
       key: "category",
       render: (cat: string) => {
         let color = "purple";
-        if (cat === "home") color = "cyan";
-        if (cat === "office") color = "blue";
+        if (cat === "residential") color = "cyan";
+        if (cat === "commercial") color = "blue";
         return (
           <Tag color={color} style={{ textTransform: "capitalize" }}>
             {cat}
@@ -466,7 +466,7 @@ export default function AdminProjectsPage() {
           form={form}
           layout="vertical"
           onFinish={handleFinish}
-          initialValues={{ status: "draft", category: "home" }}
+          initialValues={{ status: "draft", category: "residential" }}
           style={{ marginTop: "20px" }}
         >
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
@@ -494,8 +494,8 @@ export default function AdminProjectsPage() {
               rules={[{ required: true, message: "Please select category" }]}
             >
               <Select placeholder="Select category">
-                <Select.Option value="home">Residential/Home</Select.Option>
-                <Select.Option value="office">Workspace/Office</Select.Option>
+                <Select.Option value="residential">Residential</Select.Option>
+                <Select.Option value="commercial">Commercial</Select.Option>
                 <Select.Option value="interior">Interior Architecture</Select.Option>
               </Select>
             </Form.Item>
@@ -517,7 +517,7 @@ export default function AdminProjectsPage() {
               label="Location"
               rules={[{ required: true, message: "Please input location" }]}
             >
-              <Input placeholder="E.g., Nadapuram, Kozhikode" />
+              <Input placeholder="E.g., Kallachi, Kozhikode" />
             </Form.Item>
           </div>
 

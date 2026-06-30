@@ -10,12 +10,8 @@ export async function middleware(req: NextRequest) {
 
   // 1. Protect admin dashboard pages
   if (pathname.startsWith("/admin")) {
-    if (pathname === "/admin/login") {
-      return NextResponse.next();
-    }
-
     if (!adminToken) {
-      return NextResponse.redirect(new URL("/admin/login", req.url));
+      return NextResponse.redirect(new URL("/login", req.url));
     }
 
     try {
@@ -24,7 +20,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.next();
     } catch {
       // Admin token expired or invalid
-      const response = NextResponse.redirect(new URL("/admin/login", req.url));
+      const response = NextResponse.redirect(new URL("/login", req.url));
       response.cookies.delete("admin_token");
       return response;
     }

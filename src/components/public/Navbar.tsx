@@ -56,11 +56,8 @@ export default function Navbar() {
       if (data.success) {
         setUser(null);
         message.success("Signed out successfully.");
-        // Redirect to homepage
-        router.push("/");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 500);
+        // Redirect to login page
+        router.push("/login");
       } else {
         message.error("Failed to sign out.");
       }
@@ -87,8 +84,10 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 1000,
-        background: "#ffffff",
-        borderBottom: "1px solid var(--border-color)",
+        background: "rgba(255, 255, 255, 0.15)", // Transparent glass
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
         padding: "16px 40px",
         display: "flex",
         alignItems: "center",
@@ -157,28 +156,36 @@ export default function Navbar() {
               </Button>
             </div>
           ) : isAdmin ? (
-            <Button
-              type="default"
-              className="admin-panel-btn"
-              href="/admin/dashboard"
-              style={{
-                marginRight: 0,
-                borderColor: "var(--primary-color)",
-                color: "var(--primary-color)",
-                fontWeight: 500,
-              }}
-            >
-              View Admin Panel
-            </Button>
+            <Link href="/admin/dashboard">
+              <Button
+                type="default"
+                className="admin-panel-btn"
+                style={{
+                  marginRight: 0,
+                  borderColor: "var(--primary-color)",
+                  color: "var(--primary-color)",
+                  fontWeight: 500,
+                }}
+              >
+                View Admin Panel
+              </Button>
+            </Link>
           ) : (
-            <Button
-              type="default"
-              className="admin-login-btn"
-              href="/login"
-              style={{ marginRight: 0 }}
-            >
-              Signup/Login
-            </Button>
+            <Link href="/login">
+              <Button
+                type="default"
+                className="admin-login-btn"
+                style={{
+                  marginRight: 0,
+                  borderRadius: "20px",
+                  background: "rgba(255,255,255,0.3)",
+                  borderColor: "rgba(0,0,0,0.15)",
+                  fontWeight: 500,
+                }}
+              >
+                Signup/Login
+              </Button>
+            </Link>
           )}
         </Space>
       </nav>
@@ -258,34 +265,34 @@ export default function Navbar() {
               </Button>
             </div>
           ) : isAdmin ? (
-            <Button
-              type="default"
-              href="/admin/dashboard"
-              onClick={toggleDrawer}
-              block
-              style={{
-                height: "45px",
-                borderColor: "var(--primary-color)",
-                color: "var(--primary-color)",
-                fontWeight: 500,
-              }}
-            >
-              View Admin Panel
-            </Button>
+            <Link href="/admin/dashboard" onClick={toggleDrawer} style={{ display: 'block', width: '100%' }}>
+              <Button
+                type="default"
+                block
+                style={{
+                  height: "45px",
+                  borderColor: "var(--primary-color)",
+                  color: "var(--primary-color)",
+                  fontWeight: 500,
+                }}
+              >
+                View Admin Panel
+              </Button>
+            </Link>
           ) : (
-            <Button
-              type="default"
-              href="/login"
-              onClick={toggleDrawer}
-              block
-              style={{
-                height: "45px",
-                borderColor: "var(--primary-color)",
-                color: "var(--primary-color)",
-              }}
-            >
-              Signup/Login
-            </Button>
+            <Link href="/login" onClick={toggleDrawer} style={{ display: 'block', width: '100%' }}>
+              <Button
+                type="default"
+                block
+                style={{
+                  height: "45px",
+                  borderColor: "var(--primary-color)",
+                  color: "var(--primary-color)",
+                }}
+              >
+                Signup/Login
+              </Button>
+            </Link>
           )}
         </Space>
       </Drawer>

@@ -7,7 +7,7 @@ const InquirySchema = new Schema(
     email: { type: String },
     projectType: {
       type: String,
-      enum: ["home", "office", "interior"],
+      enum: ["residential", "commercial", "interior"],
       required: true,
     },
     location: { type: String, required: true },

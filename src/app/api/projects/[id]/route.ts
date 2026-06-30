@@ -3,6 +3,8 @@ import { connectDB } from "@/lib/db";
 import Project from "@/models/Project";
 import mongoose from "mongoose";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -12,10 +14,15 @@ export async function GET(
     await connectDB();
 
     let project;
-    if (mongoose.Types.ObjectId.isValid(id)) {
-      project = await Project.findById(id);
-    } else {
-      project = await Project.findOne({ slug: id });
+    
+    // Check if it's a valid 24-character hex ObjectId
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      project = await Project.findById(id).lean();
+    }
+    
+    // If not found by ID or not a valid hex ID, look up by slug
+    if (!project) {
+      project = await Project.findOne({ slug: id }).lean();
     }
 
     if (!project) {

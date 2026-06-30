@@ -33,7 +33,7 @@ export default function Footer() {
                 <Logo light fontSize="26px" subtitleSize="9px" />
               </Link>
               <Paragraph style={{ color: "#d8cfc0", fontSize: "14px", lineHeight: "1.6" }}>
-                Bespoke design studio based in Nadapuram and Kallachi, specializing in residential architecture, workspace design, and refined custom interiors.
+                Bespoke design studio based in Kallachi, specializing in residential architecture, commercial design, and refined custom interiors.
               </Paragraph>
 
             </Space>
@@ -41,29 +41,23 @@ export default function Footer() {
 
           <Col xs={24} sm={12} md={8}>
             <Title level={4} style={{ color: "#ffffff", marginBottom: "20px" }} className="font-serif">
-              Studio Locations
+              Office Branch
             </Title>
             <Space direction="vertical" size={12} style={{ width: "100%" }}>
               <div style={{ display: "flex", alignItems: "flex-start" }}>
                 <EnvironmentOutlined style={{ color: "var(--primary-color)", marginRight: "8px", marginTop: "4px" }} />
-                <Text style={{ color: "#eae4db" }}>
-                  <strong>Nadapuram Office:</strong><br />
-                  First Floor, Royal Plaza, Nadapuram, Kozhikode, KL 673504
-                </Text>
-              </div>
-              <div style={{ display: "flex", alignItems: "flex-start" }}>
-                <EnvironmentOutlined style={{ color: "var(--primary-color)", marginRight: "8px", marginTop: "4px" }} />
-                <Text style={{ color: "#eae4db" }}>
-                  <strong>Kallachi Branch:</strong><br />
-                  Opp. Town Masjid, Kallachi, Vadakara, India 673506
-                </Text>
+                <a href="https://maps.app.goo.gl/4uvd8hsYrXtB6cHCA" target="_blank" rel="noreferrer" style={{ color: "#eae4db", textDecoration: "none" }}>
+                  <strong>Mieux Interiors</strong> Kallachi, Kerala<br />
+                  <span style={{ fontSize: "13px", color: "#d8cfc0", display: "inline-block", margin: "4px 0" }}>Opposite of Valayam Road, Kallachi</span><br />
+                  <span style={{ textDecoration: "underline" }}>View on Google Maps</span>
+                </a>
               </div>
             </Space>
           </Col>
 
           <Col xs={24} sm={12} md={8}>
             <Title level={4} style={{ color: "#ffffff", marginBottom: "20px" }} className="font-serif">
-              Inquiries
+              Enquiries
             </Title>
             <Space direction="vertical" size={12} style={{ width: "100%" }}>
               <div style={{ display: "flex", alignItems: "center" }}>
@@ -74,8 +68,8 @@ export default function Footer() {
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <MailOutlined style={{ color: "var(--primary-color)", marginRight: "8px" }} />
-                <a href="mailto:info@mieuxinteriors.com" style={{ color: "#eae4db" }}>
-                  info@mieuxinteriors.com
+                <a href="mailto:mieuxinterior@gmail.com" style={{ color: "#eae4db" }}>
+                  mieuxinterior@gmail.com
                 </a>
               </div>
               <div style={{ display: "flex", alignItems: "center", marginTop: "4px" }}>
@@ -110,7 +104,7 @@ export default function Footer() {
 
       {/* Global Floating WhatsApp Button */}
       <a
-        href="https://wa.me/919744335051?text=Hi%20Mieux%20Interiors,%20I%20would%20like%20to%20book%20a%20design%20consultation."
+        href="https://wa.me/919744335051?text=Hello%20Mieux%20Interiors%2C%20I%E2%80%99m%20interested%20in%20a%20property%20design%20consultation%20and%20would%20like%20to%20know%20more%20about%20your%20services."
         target="_blank"
         rel="noreferrer"
         className="whatsapp-float"

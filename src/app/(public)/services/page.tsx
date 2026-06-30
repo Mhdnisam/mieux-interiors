@@ -8,12 +8,12 @@ const { Title, Paragraph, Text } = Typography;
 export default function ServicesPage() {
   const serviceList = [
     {
-      title: "Residential Architecture",
+      title: "Residential Architecture & Interiors",
       subtitle: "Bespoke villas & home plans",
       image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
       description:
-        "We plan homes that respond to the environment and look gorgeous. Our design includes site analysis, structural coordination, floor plan layouts, elevation styling, and landscape integration.",
-      details: ["Bespoke Villa Designs", "Structural Planning & Consultation", "Exterior Elevation Modeling", "Tropical Landscape Concepts"],
+        "We plan homes that respond to the environment and look gorgeous. Our design includes site analysis, structural coordination, bespoke interiors, and custom furniture fabrication.",
+      details: ["Bespoke Villa Designs", "Structural Planning & Consultation", "Modular Kitchen Configurations", "Lighting & Ceiling Schematics"],
     },
     {
       title: "Commercial & Office Workspaces",
@@ -22,14 +22,6 @@ export default function ServicesPage() {
       description:
         "Workspaces need flow, acoustic control, and aesthetic energy. We design corporate offices, showrooms, and retail stores that increase productivity and enhance branding.",
       details: ["Corporate Office Floorplans", "Ergonomic Furniture Layouts", "Acoustic Wall Panelling", "Retail Showroom Styling"],
-    },
-    {
-      title: "Bespoke Interior Designing",
-      subtitle: "Material harmony and details",
-      image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Our interior design package handles all detailed spaces. We produce ceiling patterns, lighting maps, and custom wooden cabinets, assuring a refined interior experience.",
-      details: ["Modular Kitchen Configurations", "Wardrobe & TV Consol Detailings", "Lighting & Ceiling Schematics", "Custom Furniture Fabrications"],
     },
   ];
 

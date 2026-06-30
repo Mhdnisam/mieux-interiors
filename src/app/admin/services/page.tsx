@@ -422,7 +422,7 @@ export default function AdminServicesPage() {
             label="Offering Title"
             rules={[{ required: true, message: "Please input the offering title" }]}
           >
-            <Input placeholder="E.g., Residential Homes" />
+            <Input placeholder="E.g., Residential Architecture & Interiors" />
           </Form.Item>
 
           <Form.Item

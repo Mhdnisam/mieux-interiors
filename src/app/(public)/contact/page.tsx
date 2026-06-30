@@ -25,14 +25,14 @@ export default function ContactPage() {
       const data = await res.json();
 
       if (data.success) {
-        message.success("Your design inquiry has been submitted! Our architects will contact you shortly.");
+        message.success("Your design enquiry has been submitted! Our architects will contact you shortly.");
         form.resetFields();
       } else {
         message.error(data.message || "Something went wrong. Please try again.");
       }
     } catch (err) {
       console.error("Submission error:", err);
-      message.error("Failed to submit inquiry. Please check your internet connection.");
+      message.error("Failed to submit enquiry. Please check your internet connection.");
     } finally {
       setSubmitting(false);
     }
@@ -138,9 +138,9 @@ export default function ContactPage() {
                         placeholder="Select project category"
                         style={{ height: "42px" }}
                         options={[
-                          { label: "Residential Home", value: "home" },
-                          { label: "Office Workspace", value: "office" },
-                          { label: "Bespoke Interior", value: "interior" },
+                          { label: "Residential", value: "residential" },
+                          { label: "Commercial", value: "commercial" },
+                          { label: "Custom Interior", value: "interior" },
                         ]}
                       />
                     </Form.Item>
@@ -148,7 +148,7 @@ export default function ContactPage() {
                 </Row>
 
                 <Row gutter={[16, 0]}>
-                  <Col xs={24} md={12}>
+                  <Col xs={24}>
                     <Form.Item
                       name="location"
                       label="Site Location"
@@ -157,19 +157,14 @@ export default function ContactPage() {
                         { min: 2, message: "Location must be at least 2 characters long" }
                       ]}
                     >
-                      <Input placeholder="e.g., Nadapuram, Kallachi" style={{ height: "42px" }} />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item name="budget" label="Estimated Budget">
-                      <Input placeholder="e.g., 20 - 30 Lakhs (optional)" style={{ height: "42px" }} />
+                      <Input placeholder="e.g., Kallachi" style={{ height: "42px" }} />
                     </Form.Item>
                   </Col>
                 </Row>
 
                 <Form.Item
                   name="message"
-                  label="Inquiry / Message"
+                  label="Enquiry / Message"
                   rules={[
                     { required: true, message: "Please leave your message details" },
                     { min: 10, message: "Message must be at least 10 characters long" }
@@ -207,23 +202,19 @@ export default function ContactPage() {
                 styles={{ body: { padding: "32px" } }}
               >
                 <Title level={3} className="font-serif" style={{ fontSize: "22px", marginBottom: "24px" }}>
-                  Studio Information
+                  Office Branch Information
                 </Title>
 
                 <Space direction="vertical" size={20} style={{ width: "100%" }}>
                   <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
                     <EnvironmentOutlined style={{ fontSize: "20px", color: "var(--primary-color)", marginTop: "4px" }} />
                     <div>
-                      <Text type="secondary" style={{ fontSize: "12px", display: "block" }}>NADAPURAM OFFICE</Text>
-                      <Text style={{ fontWeight: 500 }}>First Floor, Royal Plaza, Nadapuram, Kozhikode, KL</Text>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
-                    <EnvironmentOutlined style={{ fontSize: "20px", color: "var(--primary-color)", marginTop: "4px" }} />
-                    <div>
-                      <Text type="secondary" style={{ fontSize: "12px", display: "block" }}>KALLACHI BRANCH</Text>
-                      <Text style={{ fontWeight: 500 }}>Opp. Town Masjid, Kallachi, Vadakara, India 673506</Text>
+                      <Text type="secondary" style={{ fontSize: "12px", display: "block", marginBottom: "4px" }}>OFFICE BRANCH</Text>
+                      <Text style={{ fontWeight: 500, display: "block" }}><strong>Mieux Interiors</strong> Kallachi, Kerala</Text>
+                      <Text type="secondary" style={{ fontSize: "13px", display: "block", marginBottom: "8px" }}>Opposite of Valayam Road, Kallachi</Text>
+                      <a href="https://maps.app.goo.gl/4uvd8hsYrXtB6cHCA" target="_blank" rel="noreferrer" style={{ fontWeight: 500 }}>
+                        View on Google Maps
+                      </a>
                     </div>
                   </div>
 
@@ -239,7 +230,7 @@ export default function ContactPage() {
                     <MailOutlined style={{ fontSize: "20px", color: "var(--primary-color)" }} />
                     <div>
                       <Text type="secondary" style={{ fontSize: "12px", display: "block" }}>EMAIL ADDRESS</Text>
-                      <a href="mailto:info@mieuxinteriors.com" style={{ fontWeight: 500 }}>info@mieuxinteriors.com</a>
+                      <a href="mailto:mieuxinterior@gmail.com" style={{ fontWeight: 500 }}>mieuxinterior@gmail.com</a>
                     </div>
                   </div>
                 </Space>
@@ -274,7 +265,7 @@ export default function ContactPage() {
                 </Paragraph>
                 <Button
                   size="large"
-                  href="https://wa.me/919744335051?text=Hi%20Mieux%20Interiors,%20I%20would%20like%20to%20inquire%20about%20a%20property%20design."
+                  href="https://wa.me/919744335051?text=Hello%20Mieux%20Interiors%2C%20I%E2%80%99m%20interested%20in%20a%20property%20design%20consultation%20and%20would%20like%20to%20know%20more%20about%20your%20services."
                   target="_blank"
                   rel="noreferrer"
                   style={{
@@ -296,8 +287,8 @@ export default function ContactPage() {
       {/* Map Embed Section */}
       <section style={{ maxWidth: "1200px", margin: "60px auto 0 auto", padding: "0 40px" }}>
         <div className="map-container">
-          <iframe
-            src="https://www.google.com/maps?q=11.6863,75.6775&z=15&output=embed"
+            <iframe
+              src="https://www.google.com/maps?q=11.6920409,75.6672675&z=15&output=embed"
             width="100%"
             height="400"
             style={{ border: 0 }}

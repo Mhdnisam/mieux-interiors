@@ -14,6 +14,12 @@ interface HomePageClientProps {
   initialTestimonials: any[];
   initialServices: any[];
   initialHeroBgImage: string;
+  initialPhilosophyBgImage: string;
+  initialPhilosophyHeading: string;
+  initialPhilosophyDescription: string;
+  initialHeroSubtitle: string;
+  initialHeroHeading: string;
+  initialHeroDescription: string;
 }
 
 export default function HomePageClient({
@@ -21,6 +27,12 @@ export default function HomePageClient({
   initialTestimonials,
   initialServices,
   initialHeroBgImage,
+  initialPhilosophyBgImage,
+  initialPhilosophyHeading,
+  initialPhilosophyDescription,
+  initialHeroSubtitle,
+  initialHeroHeading,
+  initialHeroDescription,
 }: HomePageClientProps) {
   const router = useRouter();
   const { message } = AntApp.useApp();
@@ -29,6 +41,12 @@ export default function HomePageClient({
   const [testimonials] = useState<any[]>(initialTestimonials);
   const [services] = useState<any[]>(initialServices);
   const [heroBgImage] = useState<string>(initialHeroBgImage);
+  const [philosophyBgImage] = useState<string>(initialPhilosophyBgImage);
+  const [philosophyHeading] = useState<string>(initialPhilosophyHeading);
+  const [philosophyDescription] = useState<string>(initialPhilosophyDescription);
+  const [heroSubtitle] = useState<string>(initialHeroSubtitle);
+  const [heroHeading] = useState<string>(initialHeroHeading);
+  const [heroDescription] = useState<string>(initialHeroDescription);
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -148,7 +166,7 @@ export default function HomePageClient({
               fontWeight: 600,
             }}
           >
-            Architectural Designer • Nadapuram & Kallachi
+            {heroSubtitle}
           </span>
           <Title
             level={1}
@@ -161,35 +179,18 @@ export default function HomePageClient({
             }}
             className="font-serif"
           >
-            Quality. Creativity. Perfection.
+            {heroHeading}
           </Title>
-          <Paragraph
-            style={{
-              color: "#eae4db",
-              fontSize: "clamp(16px, 2.5vw, 20px)",
-              marginTop: "24px",
-              lineHeight: "1.6",
-              maxWidth: "680px",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
+          <Title
+            level={4}
+            style={{ color: "#d8cfc0", fontWeight: 400, maxWidth: "700px", margin: "24px auto 0", lineHeight: "1.6" }}
           >
-            Trusted design studio crafting luxury homes, modern office workspaces, and custom interiors with material honesty and aesthetic balance in Nadapuram and Kallachi.
-          </Paragraph>
-          <div
-            style={{
-              fontSize: "18px",
-              color: "#eae4db",
-              marginTop: "16px",
-              display: "flex",
-              justifyContent: "center",
-              gap: "24px",
-              flexWrap: "wrap",
-            }}
-          >
-            <span>🏡 Homes</span>
-            <span>🏢 Offices</span>
-            <span>🛋 Interiors</span>
+            {heroDescription}
+          </Title>
+          <div style={{ color: "#e8e1d7", fontSize: "16px", marginTop: "16px", display: "flex", justifyContent: "center", gap: "24px" }}>
+            <span>🏡 Residential</span>
+            <span>🏢 Commercial</span>
+            <span>🛋️ Custom Interiors</span>
           </div>
           <Space size={16} style={{ marginTop: "40px" }} wrap>
             <Button
@@ -231,14 +232,15 @@ export default function HomePageClient({
               Our Philosophy
             </span>
             <Title level={2} className="font-serif" style={{ fontSize: "36px", marginBottom: "24px" }}>
-              Bespoke Spaces Designed For Inspired Living
+              {philosophyHeading}
             </Title>
-            <Paragraph style={{ color: "var(--text-secondary)", fontSize: "16px", lineHeight: "1.8" }}>
-              At Mieux Interiors & Architects, we believe that design should be a direct reflection of its context, material, and user. We balance raw organic textures with premium materials like oak wood and custom bronze to create environments that are both functional and inspiring.
-            </Paragraph>
-            <Paragraph style={{ color: "var(--text-secondary)", fontSize: "16px", lineHeight: "1.8", marginBottom: "32px" }}>
-              Whether designing a private residence in Kallachi or a workspace in Nadapuram, our dedicated team handles every step from conceptualization to execution with absolute precision.
-            </Paragraph>
+            
+            {philosophyDescription.split("\n\n").map((paragraph, idx, arr) => (
+              <Paragraph key={idx} style={{ color: "var(--text-secondary)", fontSize: "16px", lineHeight: "1.8", marginBottom: idx === arr.length - 1 ? "32px" : "1em" }}>
+                {paragraph}
+              </Paragraph>
+            ))}
+
             <Button
               type="primary"
               href="/about"
@@ -256,7 +258,7 @@ export default function HomePageClient({
                 borderRadius: "12px",
                 overflow: "hidden",
                 boxShadow: "0 10px 30px rgba(0, 0, 0, 0.05)",
-                backgroundImage: `url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80')`,
+                backgroundImage: `url('${philosophyBgImage}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -561,7 +563,7 @@ export default function HomePageClient({
             Ready to design your dream space?
           </Title>
           <Paragraph type="secondary" style={{ fontSize: "16px", marginBottom: "32px", lineHeight: "1.6" }}>
-            Book a complimentary design consultation at our Nadapuram studio or Kallachi showroom. Our architects will outline layout possibilities and material scopes.
+            Book a complimentary design consultation at our Kallachi studio. Our architects will outline layout possibilities and material scopes.
           </Paragraph>
           <Button type="primary" size="large" href="/contact" style={{ height: "48px", padding: "0 32px" }}>
             Get Free Consultation

@@ -183,7 +183,7 @@ export default function FeedbackPage() {
                 >
                   <Input
                     prefix={<EnvironmentOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-                    placeholder="e.g. Nadapuram, Kallachi"
+                    placeholder="e.g. Kallachi"
                     size="large"
                     style={{ height: "45px", borderRadius: "6px" }}
                   />

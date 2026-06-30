@@ -16,8 +16,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mieux Interiors & Architects | Architectural Designer | Nadapuram | Kallachi",
-  description: "Mieux Interiors & Architects: Trusted design studio in Nadapuram & Kallachi. 🏡 Homes | 🏢 Offices | 🛋 Interiors. Quality. Creativity. Perfection.",
+  title: "Mieux Interiors & Architects | Architectural Designer | Kallachi",
+  description: "Mieux Interiors & Architects: Trusted design studio in Kallachi. 🏡 Residential | 🏢 Commercial. Quality. Creativity. Perfection.",
 };
 
 export default function RootLayout({

@@ -49,8 +49,8 @@ async function runSeed() {
       {
         title: "The Bronze Villa",
         slug: "the-bronze-villa",
-        category: "home",
-        location: "Kallachi, Nadapuram",
+        category: "residential",
+        location: "Kallachi",
         shortDescription: "A luxurious 4 BHK residential project featuring earthy tones and premium bronze accents.",
         fullDescription: "The Bronze Villa is designed to merge luxury with warmth. Every element in this home is carefully selected to reflect natural materials, with solid timber finishes, earthy olive accents, and custom bronze fixtures. The spatial layout is open, welcoming ample natural light throughout the double-height living room and dining spaces.",
         coverImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
@@ -66,8 +66,8 @@ async function runSeed() {
       {
         title: "Earthy Slate Studio",
         slug: "earthy-slate-studio",
-        category: "office",
-        location: "Nadapuram, Kerala",
+        category: "commercial",
+        location: "Kallachi, Kerala",
         shortDescription: "An ergonomic, productive office space for a creative design agency with natural accents.",
         fullDescription: "Earthy Slate Studio is a workplace that fosters productivity and creativity. Employing an open floor plan, acoustic wood paneling, slate-gray floor tiles, and custom linear lighting. The office features multiple collaborative pods, private call chambers, and a central social kitchen area that acts as the hub of the agency.",
         coverImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
@@ -83,7 +83,7 @@ async function runSeed() {
       {
         title: "Olive Harmony Residence",
         slug: "olive-harmony-residence",
-        category: "interior",
+        category: "residential",
         location: "Kozhikode, Kerala",
         shortDescription: "Custom interior styling prioritizing material balance, natural ventilation, and muted olives.",
         fullDescription: "Olive Harmony Residence is an interior-only project designed for a family of four. It emphasizes material honesty and spatial efficiency. Custom-crafted wardrobes, cane sliding partitions, and a soothing color palette dominated by muted olive and warm white create a sanctuary-like atmosphere.",
@@ -109,7 +109,7 @@ async function runSeed() {
     const dummyTestimonials = [
       {
         name: "Dr. Anoop Rahman",
-        place: "Nadapuram",
+        place: "Kallachi",
         quote: "Mieux Interiors completely transformed our vision for our home. The attention to detail and choice of warm materials like bronze and oak exceeded our expectations.",
         rating: 5,
         featured: true,
@@ -132,29 +132,21 @@ async function runSeed() {
   if (serviceCount === 0) {
     const dummyServices = [
       {
-        title: "Residential Homes",
-        description: "Bespoke villas, luxury apartments, and residential architectural planning customized to reflect family lifestyles.",
+        title: "Residential Architecture & Interiors",
+        description: "Bespoke villas, luxury apartments, tailored wooden carpentry, and residential architectural planning customized to reflect family lifestyles.",
         coverImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
         linkUrl: "/services",
         order: 0,
         active: true,
       },
       {
-        title: "Office Workspaces",
+        title: "Commercial & Corporate Workspaces",
         description: "Highly functional, productive corporate offices and commercial retail layouts emphasizing ergonomic layout and flow.",
         coverImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
         linkUrl: "/services",
         order: 1,
         active: true,
-      },
-      {
-        title: "Custom Interiors",
-        description: "Fine details including kitchen design, lighting design, material scheduling, and tailored wooden carpentry.",
-        coverImage: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
-        linkUrl: "/services",
-        order: 2,
-        active: true,
-      },
+      }
     ];
 
     await Service.insertMany(dummyServices);

@@ -278,7 +278,7 @@ export default function AdminTestimonialsPage() {
             </Form.Item>
 
             <Form.Item name="place" label="Location / City">
-              <Input placeholder="E.g., Kallachi, Nadapuram" />
+              <Input placeholder="E.g., Kallachi" />
             </Form.Item>
           </div>
 
