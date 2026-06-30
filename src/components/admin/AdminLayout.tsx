@@ -86,7 +86,7 @@ export default function AdminLayout({
     {
       key: "6",
       icon: <MailOutlined />,
-      label: <Link href="/admin/inquiries">Inquiries</Link>,
+      label: <Link href="/admin/inquiries">Enquire</Link>,
     },
     {
       key: "7",

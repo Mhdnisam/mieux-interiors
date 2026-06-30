@@ -496,7 +496,7 @@ export default function AdminProjectsPage() {
               <Select placeholder="Select category">
                 <Select.Option value="residential">Residential</Select.Option>
                 <Select.Option value="commercial">Commercial</Select.Option>
-                <Select.Option value="interior">Interior Architecture</Select.Option>
+                <Select.Option value="interior">Custom Interiors</Select.Option>
               </Select>
             </Form.Item>
 

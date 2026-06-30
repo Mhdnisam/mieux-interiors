@@ -81,6 +81,7 @@ export default function PublicProjectsPage() {
     { key: "all", label: "All Projects" },
     { key: "residential", label: "Residential" },
     { key: "commercial", label: "Commercial" },
+    { key: "interior", label: "Custom Interiors" },
   ];
 
   return (
