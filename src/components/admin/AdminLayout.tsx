@@ -137,6 +137,11 @@ export default function AdminLayout({
         style={{
           boxShadow: "2px 0 8px rgba(0,0,0,0.15)",
           zIndex: 100,
+          position: "sticky",
+          top: 0,
+          left: 0,
+          height: "100vh",
+          overflow: "auto",
         }}
       >
         <div style={{ padding: "24px 16px", display: "flex", justifyContent: "center", borderBottom: "1px solid #1f1f1f" }}>
@@ -179,6 +184,9 @@ export default function AdminLayout({
         {/* Header navigation bar */}
         <Header
           style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 90,
             background: "#ffffff",
             padding: "0 24px",
             display: "flex",
