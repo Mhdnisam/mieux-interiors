@@ -20,7 +20,7 @@ export default function Logo({
   return (
     <div style={{ display: "inline-flex", alignItems: "center", ...style }}>
       <img
-        src="/logo.png"
+        src={light ? "/logo_transparent.png" : "/logo.png"}
         alt="MIEUX Interior & Architecture"
         style={{
           height: height,
