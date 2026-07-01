@@ -7,10 +7,12 @@ export async function GET(req: NextRequest) {
   try {
     const token = req.cookies.get("user_token")?.value;
     if (!token) {
-      return NextResponse.json(
+      const response = NextResponse.json(
         { success: false, user: null, message: "Not logged in" },
         { status: 401 }
       );
+      response.cookies.delete("mieux_user_logged_in");
+      return response;
     }
 
     const secret = new TextEncoder().encode(JWT_SECRET);
@@ -26,9 +28,11 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("Session verification failed:", error);
-    return NextResponse.json(
+    const response = NextResponse.json(
       { success: false, user: null, message: "Invalid token" },
       { status: 401 }
     );
+    response.cookies.delete("mieux_user_logged_in");
+    return response;
   }
 }

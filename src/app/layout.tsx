@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { ConfigProvider, App as AntApp } from "antd";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
@@ -15,6 +15,11 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Mieux Interiors & Architects | Architectural Designer | Kallachi",
   description: "Mieux Interiors & Architects: Trusted design studio in Kallachi. 🏡 Residential | 🏢 Commercial. Quality. Creativity. Perfection.",
@@ -26,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <AntdRegistry>
           <AntdClientProvider>
@@ -36,7 +41,7 @@ export default function RootLayout({
                   colorPrimary: "#8a6a4a", // Bronze accent
                   colorInfo: "#8a6a4a",
                   borderRadius: 8,
-                  fontFamily: "var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                  fontFamily: "var(--font-outfit), var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
                 },
               }}
             >

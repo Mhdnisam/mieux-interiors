@@ -26,6 +26,8 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsAdmin(document.cookie.includes("mieux_admin_logged_in=true"));
+    const hasUserCookie = document.cookie.includes("mieux_user_logged_in=true");
+    if (!hasUserCookie) return;
     const fetchUserSession = async () => {
       try {
         const controller = new AbortController();
@@ -37,6 +39,9 @@ export default function Navbar() {
           if (data.success && data.user) {
             setUser(data.user);
           }
+        } else if (res.status === 401) {
+          document.cookie = "mieux_user_logged_in=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          setUser(null);
         }
       } catch (err: any) {
         if (err?.name !== "AbortError") {
@@ -297,16 +302,6 @@ export default function Navbar() {
         </Space>
       </Drawer>
 
-      <style jsx global>{`
-        @media (max-width: 768px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .mobile-nav-toggle {
-            display: block !important;
-          }
-        }
-      `}</style>
     </header>
   );
 }

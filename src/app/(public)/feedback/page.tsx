@@ -20,6 +20,8 @@ export default function FeedbackPage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const hasUserCookie = document.cookie.includes("mieux_user_logged_in=true");
+        if (!hasUserCookie) return;
         const res = await fetch("/api/users/me");
         if (res.ok) {
           const data = await res.json();
@@ -28,6 +30,8 @@ export default function FeedbackPage() {
               name: data.user.name,
             });
           }
+        } else if (res.status === 401) {
+          document.cookie = "mieux_user_logged_in=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         }
       } catch (err) {
         console.error("Error fetching user details:", err);
@@ -80,11 +84,14 @@ export default function FeedbackPage() {
         form.resetFields();
 
         // Re-populate the user's name
-        const userRes = await fetch("/api/users/me");
-        if (userRes.ok) {
-          const userData = await userRes.json();
-          if (userData.success && userData.user) {
-            form.setFieldsValue({ name: userData.user.name });
+        const hasUserCookie = document.cookie.includes("mieux_user_logged_in=true");
+        if (hasUserCookie) {
+          const userRes = await fetch("/api/users/me");
+          if (userRes.ok) {
+            const userData = await userRes.json();
+            if (userData.success && userData.user) {
+              form.setFieldsValue({ name: userData.user.name });
+            }
           }
         }
       } else {

@@ -21,7 +21,7 @@ html,
 body {
   background-color: var(--bg-warm);
   color: var(--text-main);
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-outfit), var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
   min-height: 100vh;
@@ -46,7 +46,7 @@ span,
 div,
 a,
 .font-sans {
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-outfit), var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 a {
@@ -266,4 +266,85 @@ a {
   border-color: var(--primary-hover) !important;
   color: var(--primary-hover) !important;
   background-color: rgba(138, 106, 74, 0.05) !important;
+}
+
+/* ===== Navbar Responsive Styles ===== */
+/* These MUST be in globals.css (not style jsx) to prevent FOUC on page load */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-nav-toggle {
+    display: block !important;
+  }
+  .hero-dot-separator {
+    display: block;
+    font-size: 0;
+    height: 6px;
+  }
+  .hero-categories {
+    gap: 12px !important;
+    font-size: 13px !important;
+  }
+}
+
+.admin-header-title {
+  margin: 0 !important;
+  font-size: 20px !important;
+  white-space: nowrap !important;
+}
+
+.admin-title-desktop {
+  display: inline;
+}
+
+.admin-title-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .admin-header-title {
+    font-size: 16px !important;
+  }
+  .admin-title-desktop {
+    display: none;
+  }
+  .admin-title-mobile {
+    display: inline;
+  }
+  .admin-btn-text {
+    display: none !important;
+  }
+}
+
+.admin-sidebar-mask {
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .admin-sidebar-mask {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header-title {
+    font-size: 15px !important;
+  }
+}
+
+/* ===== FOUC Prevention ===== */
+/* Hide body until CSS-in-JS (Ant Design) has hydrated */
+body {
+  opacity: 1;
+  animation: preventFOUC 0s 0.05s both;
+}
+
+@keyframes preventFOUC {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
 }

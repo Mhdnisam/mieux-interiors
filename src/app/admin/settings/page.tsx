@@ -29,7 +29,8 @@ export default function AdminSettingsPage() {
           authBgImage: data.data.authBgImage || "/login_bg.png",
           philosophyBgImage: data.data.philosophyBgImage,
           philosophyHeading: data.data.philosophyHeading || "Bespoke Spaces Designed For Inspired Living",
-          philosophyDescription: data.data.philosophyDescription || "At Mieux Interiors & Architects, we believe that design should be a direct reflection of its context, material, and user. We balance raw organic textures with premium materials like oak wood and custom bronze to create environments that are both functional and inspiring.\n\nWhether designing a private residence or a commercial workspace in Kallachi, our dedicated team handles every step from conceptualization to execution with absolute precision."
+          philosophyDescription: data.data.philosophyDescription || "At Mieux Interiors & Architects, we believe that design should be a direct reflection of its context, material, and user. We balance raw organic textures with premium materials like oak wood and custom bronze to create environments that are both functional and inspiring.\n\nWhether designing a private residence or a commercial workspace in Kallachi, our dedicated team handles every step from conceptualization to execution with absolute precision.",
+          aboutBgImage: data.data.aboutBgImage || "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80"
         });
       } else {
         message.error("Failed to load settings.");
@@ -329,9 +330,72 @@ export default function AdminSettingsPage() {
               </Form.Item>
             </Card>
 
+            {/* About Page Settings */}
+            <Card 
+              title={<span className="font-serif" style={{ fontSize: "18px", fontWeight: 600 }}>3. About Page Settings</span>} 
+              variant="borderless" 
+              style={{ borderRadius: "12px", boxShadow: "0 4px 20px rgba(138, 106, 74, 0.04)" }}
+            >
+              <Form.Item
+                shouldUpdate={(prevValues, currentValues) => prevValues.aboutBgImage !== currentValues.aboutBgImage}
+              >
+                {({ getFieldValue }) => {
+                  const aboutImg = getFieldValue("aboutBgImage");
+                  return (
+                    <>
+                      <Form.Item
+                        name="aboutBgImage"
+                        label={<span style={{ fontWeight: 600 }}>About Page Main Image URL</span>}
+                        rules={[{ required: true, message: "Please specify or upload an image" }]}
+                        extra="Enter an external image URL, or upload a file directly from your computer below."
+                      >
+                        <Input 
+                          prefix={<PictureOutlined style={{ color: "var(--text-secondary)" }} />}
+                          placeholder="https://images.unsplash.com/photo-..." 
+                          size="large"
+                          style={{ height: "45px" }}
+                        />
+                      </Form.Item>
+
+                      <Form.Item label={<span style={{ fontWeight: 600 }}>Upload New About Image</span>} style={{ marginBottom: 0 }}>
+                        <Space align="start" size={24} wrap>
+                          <Upload
+                            accept="image/*"
+                            showUploadList={false}
+                            customRequest={(options) => handleMediaUpload(options, "aboutBgImage")}
+                            beforeUpload={handleBeforeUpload}
+                          >
+                            <Button 
+                              icon={<UploadOutlined />} 
+                              loading={uploading} 
+                              size="large"
+                              style={{ height: "45px" }}
+                            >
+                              {uploading ? "Uploading..." : "Select & Upload Image"}
+                            </Button>
+                          </Upload>
+
+                          {/* About Preview */}
+                          {aboutImg && (
+                            <div style={{ position: "relative", width: "120px", height: "80px", borderRadius: "8px", overflow: "hidden", border: "1px solid #d9d9d9" }}>
+                              <Image
+                                src={aboutImg}
+                                alt="About Page Preview"
+                                style={{ width: "120px", height: "80px", objectFit: "cover" }}
+                              />
+                            </div>
+                          )}
+                        </Space>
+                      </Form.Item>
+                    </>
+                  );
+                }}
+              </Form.Item>
+            </Card>
+
             {/* Auth Settings */}
             <Card 
-              title={<span className="font-serif" style={{ fontSize: "18px", fontWeight: 600 }}>3. Authentication Pages Settings (Login/Register)</span>} 
+              title={<span className="font-serif" style={{ fontSize: "18px", fontWeight: 600 }}>4. Authentication Pages Settings (Login/Register)</span>} 
               variant="borderless" 
               style={{ borderRadius: "12px", boxShadow: "0 4px 20px rgba(138, 106, 74, 0.04)" }}
             >

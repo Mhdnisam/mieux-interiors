@@ -1,10 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Col, Row, Space, Typography, Card } from "antd";
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function AboutPage() {
+  const [aboutImage, setAboutImage] = useState("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80");
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch(`/api/settings?t=${Date.now()}`, { cache: "no-store" });
+        const data = await res.json();
+        if (data.success && data.data?.aboutBgImage) {
+          setAboutImage(data.data.aboutBgImage);
+        }
+      } catch (err) {
+        console.error("Failed to load about page image settings:", err);
+      }
+    };
+    fetchSettings();
+  }, []);
   const values = [
     {
       title: "Material Honesty",
@@ -77,7 +94,7 @@ export default function AboutPage() {
                 height: "380px",
                 borderRadius: "12px",
                 overflow: "hidden",
-                backgroundImage: `url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80')`,
+                backgroundImage: `url('${aboutImage}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}

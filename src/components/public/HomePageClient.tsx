@@ -166,7 +166,19 @@ export default function HomePageClient({
               fontWeight: 600,
             }}
           >
-            {heroSubtitle}
+            {(() => {
+              const parts = heroSubtitle.split("•");
+              if (parts.length === 2) {
+                return (
+                  <>
+                    {parts[0].trimEnd()}
+                    <span className="hero-dot-separator"> • </span>
+                    {parts[1].trimStart()}
+                  </>
+                );
+              }
+              return heroSubtitle;
+            })()}
           </span>
           <Title
             level={1}
@@ -187,7 +199,7 @@ export default function HomePageClient({
           >
             {heroDescription}
           </Title>
-          <div style={{ color: "#e8e1d7", fontSize: "16px", marginTop: "16px", display: "flex", justifyContent: "center", gap: "24px" }}>
+          <div className="hero-categories" style={{ color: "#e8e1d7", fontSize: "16px", marginTop: "16px", display: "flex", justifyContent: "center", gap: "24px" }}>
             <span>🏡 Residential</span>
             <span>🏢 Commercial</span>
             <span>🛋️ Custom Interiors</span>

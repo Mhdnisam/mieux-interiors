@@ -1,6 +1,7 @@
 "use client";
 
-import { Layout, Menu, Button, Space, Typography, App as AntApp } from "antd";
+import React, { useState } from "react";
+import { Layout, Menu, Button, Space, Typography, App as AntApp, Spin } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -13,6 +14,8 @@ import {
   AppstoreOutlined,
   UserOutlined,
   SettingOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import Logo from "../public/Logo";
 
@@ -27,6 +30,12 @@ export default function AdminLayout({
   const pathname = usePathname();
   const router = useRouter();
   const { message } = AntApp.useApp();
+  const [collapsed, setCollapsed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -95,15 +104,39 @@ export default function AdminLayout({
     },
   ];
 
+  if (!mounted) {
+    return (
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        backgroundColor: "var(--bg-warm)"
+      }}>
+        <div style={{ textAlign: "center" }}>
+          <Spin size="large" />
+          <p style={{ marginTop: "16px", color: "var(--text-secondary)", fontSize: "14px", fontFamily: "var(--font-outfit), sans-serif" }}>
+            Loading...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       {/* Sider panel */}
       <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
         breakpoint="lg"
         collapsedWidth="0"
         theme="dark"
         style={{
           boxShadow: "2px 0 8px rgba(0,0,0,0.15)",
+          zIndex: 100,
         }}
       >
         <div style={{ padding: "24px 16px", display: "flex", justifyContent: "center", borderBottom: "1px solid #1f1f1f" }}>
@@ -116,9 +149,31 @@ export default function AdminLayout({
           mode="inline"
           selectedKeys={[getActiveKey()]}
           items={menuItems}
+          onClick={() => {
+            if (window.innerWidth < 992) {
+              setCollapsed(true);
+            }
+          }}
           style={{ padding: "16px 0" }}
         />
       </Sider>
+
+      {/* Mobile Backdrop Mask */}
+      {!collapsed && (
+        <div
+          className="admin-sidebar-mask"
+          onClick={() => setCollapsed(true)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(0, 0, 0, 0.3)",
+            zIndex: 99,
+          }}
+        />
+      )}
 
       <Layout>
         {/* Header navigation bar */}
@@ -132,14 +187,29 @@ export default function AdminLayout({
             boxShadow: "0 2px 8px rgba(138, 106, 74, 0.05)",
           }}
         >
-          <Title level={4} style={{ margin: 0 }} className="font-serif">
-            Studio Management Console
-          </Title>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined style={{ fontSize: "20px" }} /> : <MenuFoldOutlined style={{ fontSize: "20px" }} />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                width: "40px",
+                height: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            />
+            <Title level={4} className="font-serif admin-header-title">
+              <span className="admin-title-desktop">Mieux Admin Console</span>
+              <span className="admin-title-mobile">Mieux Admin</span>
+            </Title>
+          </div>
 
           <Space size={16}>
             <Link href="/">
               <Button type="text" icon={<HomeOutlined />}>
-                View Live Website
+                <span className="admin-btn-text">View Live Website</span>
               </Button>
             </Link>
             <Button
@@ -151,7 +221,7 @@ export default function AdminLayout({
                 borderRadius: "4px",
               }}
             >
-              Logout
+              <span className="admin-btn-text">Logout</span>
             </Button>
           </Space>
         </Header>
