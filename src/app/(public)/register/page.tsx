@@ -1,6 +1,14 @@
+import type { Metadata } from 'next'
 import { connectDB } from "@/lib/db";
 import Setting from "@/models/Setting";
 import RegisterClient from "./RegisterClient";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default async function RegisterPage() {
   let authBgImage = "/login_bg.png";

@@ -333,12 +333,6 @@ a {
   }
 }
 
-/* ===== Custom Sidebar color overrides (replace dark blue with brand warm brown) ===== */
-.ant-layout-sider.ant-layout-sider-dark,
-.ant-layout-sider.ant-layout-sider-dark .ant-menu.ant-menu-dark {
-  background: #2b2621 !important;
-}
-
 /* ===== FOUC Prevention ===== */
 /* Hide body until CSS-in-JS (Ant Design) has hydrated */
 body {
