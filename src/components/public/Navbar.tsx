@@ -24,8 +24,12 @@ export default function Navbar() {
     { label: "Contact", href: "/contact" },
   ];
 
+  // Re-check admin cookie on every route change
   useEffect(() => {
     setIsAdmin(document.cookie.includes("mieux_admin_logged_in=true"));
+  }, [pathname]);
+
+  useEffect(() => {
     const hasUserCookie = document.cookie.includes("mieux_user_logged_in=true");
     if (!hasUserCookie) return;
     const fetchUserSession = async () => {

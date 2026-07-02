@@ -52,7 +52,7 @@ export default function HomePageClient({
   const [isAdmin, setIsAdmin] = useState(false);
 
   const handleProtectedLinkClick = (e: React.MouseEvent, dest: string) => {
-    const loggedIn = document.cookie.includes("mieux_user_logged_in=true");
+    const loggedIn = document.cookie.includes("mieux_user_logged_in=true") || document.cookie.includes("mieux_admin_logged_in=true");
     if (!loggedIn) {
       e.preventDefault();
       message.warning("Please sign in or register to view this page.");
@@ -61,7 +61,7 @@ export default function HomePageClient({
   };
 
   useEffect(() => {
-    setIsLoggedIn(document.cookie.includes("mieux_user_logged_in=true"));
+    setIsLoggedIn(document.cookie.includes("mieux_user_logged_in=true") || document.cookie.includes("mieux_admin_logged_in=true"));
     setIsAdmin(document.cookie.includes("mieux_admin_logged_in=true"));
   }, []);
 
