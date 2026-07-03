@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button, Drawer, Space, App as AntApp } from "antd";
-import { MenuOutlined, LogoutOutlined } from "@ant-design/icons";
+import { MenuOutlined, LogoutOutlined, CloseOutlined } from "@ant-design/icons";
 import Logo from "./Logo";
 
 export default function Navbar() {
@@ -225,14 +225,33 @@ export default function Navbar() {
       {/* Mobile Navigation Drawer */}
       <Drawer
         title={
-          <Link href="/" style={{ display: "flex" }} onClick={toggleDrawer}>
-            <Logo fontSize="20px" subtitleSize="7px" />
-          </Link>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", position: "relative", width: "100%" }}>
+            <Link href="/" onClick={toggleDrawer} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Logo fontSize="20px" subtitleSize="7px" />
+            </Link>
+            <Button
+              type="text"
+              onClick={toggleDrawer}
+              icon={<CloseOutlined style={{ fontSize: "16px", color: "var(--text-secondary)" }} />}
+              style={{
+                position: "absolute",
+                right: "-8px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "32px",
+                height: "32px",
+              }}
+            />
+          </div>
         }
         placement="right"
         onClose={toggleDrawer}
         open={open}
         width={280}
+        closeIcon={null}
         styles={{
           header: {
             borderBottom: "1px solid var(--border-color)",
