@@ -14,7 +14,7 @@ export default function Logo({
   style,
   layout = "horizontal",
 }: LogoProps) {
-  const height = layout === "horizontal" ? `calc(1.35 * ${fontSize})` : `calc(2.0 * ${fontSize})`;
+  const height = layout === "horizontal" ? `calc(1.5 * ${fontSize})` : `calc(2.2 * ${fontSize})`;
 
   return (
     <div style={{ display: "inline-flex", alignItems: "center", ...style }}>
