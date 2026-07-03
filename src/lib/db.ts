@@ -25,7 +25,6 @@ export async function connectDB() {
 
   if (!cached.promise) {
     const opts = {
-      bufferCommands: false,
       maxPoolSize: 10,
       minPoolSize: 2,
       socketTimeoutMS: 20000,

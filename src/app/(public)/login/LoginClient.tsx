@@ -20,37 +20,56 @@ export default function LoginClient({ authBgImage }: { authBgImage: string }) {
   const onFinishLogin = async (values: any) => {
     setLoading(true);
     try {
-      // First try user login
-      const res = await fetch("/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const data = await res.json();
-      if (data.success) {
-        message.success("Logged in successfully. Welcome back!");
-        router.push(redirect);
-        setTimeout(() => { window.location.href = redirect; }, 500);
-        return;
-      } 
+      let userLoggedIn = false;
       
-      // If user login fails, try admin login silently
-      const adminRes = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const adminData = await adminRes.json();
-      if (adminData.success) {
-        message.success("Logged in successfully. Welcome to Mieux Admin!");
-        router.push("/admin/dashboard");
-        return;
+      // First try user login
+      try {
+        const res = await fetch("/api/users/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            message.success("Logged in successfully. Welcome back!");
+            router.push(redirect);
+            setTimeout(() => { window.location.href = redirect; }, 500);
+            userLoggedIn = true;
+            return;
+          }
+        }
+      } catch (userErr) {
+        console.error("User login fetch error:", userErr);
+      }
+
+      if (userLoggedIn) return;
+      
+      // If user login fails or errors out, try admin login silently
+      try {
+        const adminRes = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+        
+        if (adminRes.ok) {
+          const adminData = await adminRes.json();
+          if (adminData.success) {
+            message.success("Logged in successfully. Welcome to Mieux Admin!");
+            router.push("/admin/dashboard");
+            return;
+          }
+        }
+      } catch (adminErr) {
+        console.error("Admin login fetch error:", adminErr);
       }
 
       // Both failed
       message.error("Invalid credentials.");
     } catch (err) {
-      console.error("Login error:", err);
+      console.error("Login flow error:", err);
       message.error("Login request failed.");
     } finally {
       setLoading(false);
