@@ -582,6 +582,21 @@ export default function HomePageClient({
           </Button>
         </div>
       </section>
+
+      {/* Map Embed Section */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto 80px auto", padding: "0 40px" }}>
+        <div className="map-container">
+          <iframe
+            src="https://www.google.com/maps?q=11.6920409,75.6672675&z=15&output=embed"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen={false}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </section>
     </div>
   );
 }
