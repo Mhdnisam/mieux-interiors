@@ -34,7 +34,7 @@ interface ProjectType {
   _id: string;
   title: string;
   slug: string;
-  category: "residential" | "commercial" | "interior";
+  category: ("residential" | "commercial" | "interior")[];
   location: string;
   shortDescription: string;
   fullDescription: string;
@@ -86,8 +86,14 @@ export default function AdminProjectsPage() {
     uploadSessionRef.current += 1;
     if (project) {
       setEditingProject(project);
+      const categoryVal = Array.isArray(project.category)
+        ? project.category
+        : project.category
+        ? [project.category]
+        : [];
       form.setFieldsValue({
         ...project,
+        category: categoryVal,
         styleTags: project.styleTags || [],
       });
       let initialMedia: { url: string; type: "image" | "video" }[] = [];
@@ -111,7 +117,7 @@ export default function AdminProjectsPage() {
       setEditingProject(null);
       form.resetFields();
       setMediaItems([]);
-      form.setFieldsValue({ status: "draft", category: "residential", media: [] });
+      form.setFieldsValue({ status: "draft", category: ["residential"], media: [] });
     }
     setModalOpen(true);
   };
@@ -341,15 +347,21 @@ export default function AdminProjectsPage() {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      render: (cat: string) => {
-        let color = "purple";
-        if (cat === "residential") color = "cyan";
-        if (cat === "commercial") color = "blue";
-        return (
-          <Tag color={color} style={{ textTransform: "capitalize" }}>
-            {cat}
-          </Tag>
-        );
+      render: (cat: string | string[]) => {
+        const renderTag = (c: string) => {
+          let color = "purple";
+          if (c === "residential") color = "cyan";
+          if (c === "commercial") color = "blue";
+          return (
+            <Tag key={c} color={color} style={{ textTransform: "capitalize" }}>
+              {c}
+            </Tag>
+          );
+        };
+        if (Array.isArray(cat)) {
+          return <Space size={4} wrap>{cat.map(renderTag)}</Space>;
+        }
+        return renderTag(cat);
       },
     },
     {
@@ -466,7 +478,7 @@ export default function AdminProjectsPage() {
           form={form}
           layout="vertical"
           onFinish={handleFinish}
-          initialValues={{ status: "draft", category: "residential" }}
+          initialValues={{ status: "draft", category: ["residential"] }}
           style={{ marginTop: "20px" }}
         >
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
@@ -490,10 +502,10 @@ export default function AdminProjectsPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
             <Form.Item
               name="category"
-              label="Project Category"
-              rules={[{ required: true, message: "Please select category" }]}
+              label="Project Categories"
+              rules={[{ required: true, message: "Please select at least one category", type: "array" }]}
             >
-              <Select placeholder="Select category">
+              <Select mode="multiple" placeholder="Select categories">
                 <Select.Option value="residential">Residential</Select.Option>
                 <Select.Option value="commercial">Commercial</Select.Option>
                 <Select.Option value="interior">Custom Interiors</Select.Option>

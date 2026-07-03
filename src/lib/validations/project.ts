@@ -3,7 +3,10 @@ import { z } from "zod";
 export const projectSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters long"),
   slug: z.string().min(3, "Slug must be at least 3 characters long"),
-  category: z.enum(["residential", "commercial", "interior"]),
+  category: z.union([
+    z.array(z.enum(["residential", "commercial", "interior"])).min(1, "Please select at least one category"),
+    z.enum(["residential", "commercial", "interior"]).transform((val) => [val]),
+  ]),
   location: z.string().min(2, "Location must be at least 2 characters long"),
   shortDescription: z.string().min(10, "Short description must be at least 10 characters long"),
   fullDescription: z.string().min(20, "Full description must be at least 20 characters long"),

@@ -1,11 +1,9 @@
 import type { MetadataRoute } from 'next'
-import { connectDB } from '@/lib/db'
-import Project from '@/models/Project'
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://www.mieuxinteriors.com'
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://mieuxinteriors.com'
 
-  const staticRoutes: MetadataRoute.Sitemap = [
+  return [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -43,23 +41,4 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
   ]
-
-  try {
-    await connectDB()
-    const projects = await Project.find({ status: { $in: ['featured', 'published'] } })
-      .select('slug updatedAt')
-      .lean()
-
-    const projectRoutes = projects.map((project: any) => ({
-      url: `${baseUrl}/projects/${project.slug}`,
-      lastModified: project.updatedAt || new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    }))
-
-    return [...staticRoutes, ...projectRoutes]
-  } catch (error) {
-    console.error('Failed to generate dynamic sitemap routes:', error)
-    return staticRoutes
-  }
 }

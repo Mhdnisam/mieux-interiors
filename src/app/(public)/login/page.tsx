@@ -1,15 +1,7 @@
-import type { Metadata } from 'next'
 import { Suspense } from "react";
 import { connectDB } from "@/lib/db";
 import Setting from "@/models/Setting";
 import LoginClient from "./LoginClient";
-
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-}
 
 export default async function LoginPage() {
   let authBgImage = "/login_bg.png";

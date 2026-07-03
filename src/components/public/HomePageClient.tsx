@@ -380,7 +380,7 @@ export default function HomePageClient({
                   styles={{ body: { padding: "20px" } }}
                 >
                   <span style={{ color: "var(--primary-color)", fontSize: "12px", textTransform: "uppercase", fontWeight: 600 }}>
-                    {project.category}
+                    {Array.isArray(project.category) ? project.category.join(" / ") : project.category}
                   </span>
                   <Title level={3} className="font-serif" style={{ fontSize: "20px", margin: "8px 0" }}>
                     {project.title}

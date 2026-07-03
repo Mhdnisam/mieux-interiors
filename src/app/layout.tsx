@@ -21,43 +21,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.mieuxinteriors.com"),
   title: "Mieux Interiors & Architects | Architectural Designer | Kallachi",
   description: "Mieux Interiors & Architects: Trusted design studio in Kallachi. 🏡 Residential | 🏢 Commercial. Quality. Creativity. Perfection.",
-  alternates: {
-    canonical: "/",
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "32x32" },
-    ],
-    apple: [
-      { url: "/icon.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
-  openGraph: {
-    title: "Mieux Interiors & Architects | Architectural Designer | Kallachi",
-    description: "Mieux Interiors & Architects: Trusted design studio in Kallachi. 🏡 Residential | 🏢 Commercial. Quality. Creativity. Perfection.",
-    url: "https://www.mieuxinteriors.com",
-    siteName: "Mieux Interiors",
-    images: [
-      {
-        url: "/icon.png",
-        width: 512,
-        height: 512,
-        alt: "Mieux Interiors & Architects Logo",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mieux Interiors & Architects | Architectural Designer | Kallachi",
-    description: "Mieux Interiors & Architects: Trusted design studio in Kallachi. 🏡 Residential | 🏢 Commercial. Quality. Creativity. Perfection.",
-    images: ["/icon.png"],
-  },
 };
 
 export default function RootLayout({

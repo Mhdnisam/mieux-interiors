@@ -6,6 +6,16 @@ import { projectSchema } from "@/lib/validations/project";
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
+
+    // Safely migrate legacy string categories to array format
+    try {
+      await Project.updateMany(
+        { category: { $type: "string" } },
+        [ { $set: { category: ["$category"] } } ]
+      );
+    } catch (migErr) {
+      console.error("Migration error:", migErr);
+    }
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");
     const status = searchParams.get("status");

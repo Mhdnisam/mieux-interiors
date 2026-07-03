@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://www.mieuxinteriors.com/sitemap.xml',
+    sitemap: 'https://mieuxinteriors.com/sitemap.xml',
   }
 }

@@ -1,12 +1,6 @@
-import type { Metadata } from "next";
-import AdminLayout from "@/components/admin/AdminLayout";
+"use client";
 
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+import AdminLayout from "@/components/admin/AdminLayout";
 
 export default function AdminRootLayout({
   children,
