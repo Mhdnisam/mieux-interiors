@@ -11,9 +11,23 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<{ id: string; name: string; email: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { message } = AntApp.useApp();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const menuItems = [
     { label: "Home", href: "/" },
@@ -107,14 +121,18 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 1000,
-        background: "rgba(255, 255, 255, 0.15)", // Transparent glass
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
-        padding: "16px 40px",
+        background: scrolled ? "rgba(250, 248, 245, 0.95)" : "rgba(255, 255, 255, 0.15)",
+        backdropFilter: scrolled ? "blur(12px)" : "blur(20px)",
+        WebkitBackdropFilter: scrolled ? "blur(12px)" : "blur(20px)",
+        borderBottom: scrolled 
+          ? "1px solid var(--border-color)" 
+          : "1px solid rgba(255, 255, 255, 0.2)",
+        boxShadow: scrolled ? "0 4px 20px rgba(138, 106, 74, 0.08)" : "none",
+        padding: scrolled ? "12px 40px" : "16px 40px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
       <div style={{ display: "flex", alignItems: "center" }}>

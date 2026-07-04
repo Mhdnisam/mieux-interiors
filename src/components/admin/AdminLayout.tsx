@@ -137,6 +137,10 @@ export default function AdminLayout({
         style={{
           boxShadow: "2px 0 8px rgba(0,0,0,0.15)",
           zIndex: 100,
+          position: "sticky",
+          top: 0,
+          height: "100vh",
+          overflowY: "auto",
         }}
       >
         <div style={{ padding: "24px 16px", display: "flex", justifyContent: "center", borderBottom: "1px solid #1f1f1f" }}>
@@ -185,6 +189,9 @@ export default function AdminLayout({
             alignItems: "center",
             justifyContent: "space-between",
             boxShadow: "0 2px 8px rgba(138, 106, 74, 0.05)",
+            position: "sticky",
+            top: 0,
+            zIndex: 99,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
