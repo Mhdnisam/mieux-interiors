@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Layout, Menu, Button, Space, Typography, App as AntApp, Spin } from "antd";
+import { Layout, Menu, Button, Space, Typography, App as AntApp, Spin, ConfigProvider } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -20,7 +20,7 @@ import {
 import Logo from "../public/Logo";
 
 const { Header, Sider, Content } = Layout;
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 export default function AdminLayout({
   children,
@@ -34,6 +34,7 @@ export default function AdminLayout({
   const [mounted, setMounted] = useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -126,41 +127,58 @@ export default function AdminLayout({
   return (
     <Layout style={{ minHeight: "100vh" }}>
       {/* Sider panel */}
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-        breakpoint="lg"
-        collapsedWidth="0"
-        theme="dark"
-        style={{
-          boxShadow: "2px 0 8px rgba(0,0,0,0.15)",
-          zIndex: 100,
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          overflowY: "auto",
+      <ConfigProvider
+        theme={{
+          components: {
+            Layout: {
+              siderBg: "#231f1b",
+            },
+            Menu: {
+              darkItemBg: "#231f1b",
+              darkSubMenuItemBg: "#231f1b",
+              darkItemHoverBg: "rgba(138, 106, 74, 0.15)",
+              darkItemSelectedBg: "#8a6a4a",
+              darkItemSelectedColor: "#ffffff",
+            },
+          },
         }}
       >
-        <div style={{ padding: "24px 16px", display: "flex", justifyContent: "center", borderBottom: "1px solid #1f1f1f" }}>
-          <Link href="/admin/dashboard" style={{ display: "flex" }}>
-            <Logo light fontSize="20px" subtitleSize="7px" />
-          </Link>
-        </div>
-        <Menu
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
+          breakpoint="lg"
+          collapsedWidth="0"
           theme="dark"
-          mode="inline"
-          selectedKeys={[getActiveKey()]}
-          items={menuItems}
-          onClick={() => {
-            if (window.innerWidth < 992) {
-              setCollapsed(true);
-            }
+          style={{
+            boxShadow: "2px 0 8px rgba(0,0,0,0.15)",
+            zIndex: 100,
+            position: "sticky",
+            top: 0,
+            height: "100vh",
+            overflowY: "auto",
           }}
-          style={{ padding: "16px 0" }}
-        />
-      </Sider>
+        >
+          <div style={{ padding: "24px 16px", display: "flex", justifyContent: "center", borderBottom: "1px solid #36302a" }}>
+            <Link href="/admin/dashboard" style={{ display: "flex" }}>
+              <Logo light fontSize="20px" subtitleSize="7px" />
+            </Link>
+          </div>
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[getActiveKey()]}
+            items={menuItems}
+            onClick={() => {
+              if (window.innerWidth < 992) {
+                setCollapsed(true);
+              }
+            }}
+            style={{ padding: "16px 0" }}
+          />
+        </Sider>
+      </ConfigProvider>
 
       {/* Mobile Backdrop Mask */}
       {!collapsed && (

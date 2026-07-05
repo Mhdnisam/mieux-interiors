@@ -14,7 +14,7 @@ export default function RegisterClient({ authBgImage }: { authBgImage: string })
   const [loading, setLoading] = useState(false);
   const { message } = AntApp.useApp();
 
-  const onFinishRegister = async (values: any) => {
+  const onFinishRegister = async (values: Record<string, string>) => {
     setLoading(true);
     try {
       const res = await fetch("/api/users/register", {
@@ -133,7 +133,7 @@ export default function RegisterClient({ authBgImage }: { authBgImage: string })
             name="phone"
             rules={[
               { required: true, message: "Please input your phone number" },
-              { pattern: /^[0-9+\s-]{8,20}$/, message: "Please enter a valid phone number" }
+              { pattern: /^[0-9]{10}$/, message: "Please enter a valid 10-digit phone number" }
             ]}
             style={{ margin: 0 }}
           >
@@ -141,6 +141,7 @@ export default function RegisterClient({ authBgImage }: { authBgImage: string })
               prefix={<PhoneOutlined style={{ color: "#888", marginRight: "12px", fontSize: "18px" }} />}
               placeholder="Phone Number"
               size="large"
+              maxLength={10}
               style={{
                 height: "54px",
                 borderRadius: "8px",

@@ -15,6 +15,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validate phone number format (exactly 10 digits)
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      return NextResponse.json(
+        { success: false, message: "Phone number must be exactly 10 digits" },
+        { status: 400 }
+      );
+    }
+
     await connectDB();
 
     // Check if user already exists
@@ -71,10 +80,10 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("User Registration Error:", error);
     return NextResponse.json(
-      { success: false, message: error.message || "Registration failed" },
+      { success: false, message: error instanceof Error ? error.message : "Registration failed" },
       { status: 500 }
     );
   }
